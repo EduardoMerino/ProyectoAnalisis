@@ -5,12 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Food Service</title>
+    <title>EatGo</title>
 
     <!--Stylesheets-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/new-age.min.css" rel="stylesheet">
     <link href="css/myStyles.css" rel="stylesheet">
+    <link href="css/Thumbnail-gallery.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,7 +32,7 @@
                 <a class="navbar-brand page-scroll" href="#page-top" style="padding:0px">
                   <h3>
                     <span class="glyphicon glyphicon-cutlery"></span>
-                    Food Service
+                    EatGo
                   </h3>
                 </a>
                 <!-- <a class="navbar-brand page-scroll" href="#page-top">MedicTour</a> -->
@@ -41,38 +42,63 @@
     </nav>
     <!-- END Nav Bar -->
 
-    <!-- Header -->
-    <header>
-      <div class="container" id="page-top">
-          <div class="row" style="text-align: center">
-              <div class="col-md-12 col-md-offset-2" style="text-align: center">
-                  <div class="header-content" style="text-align: center">
-                    <!-- Search-->
-                      <div class="header-content-inner" style="width:800px; margin:0 auto;">
-                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                        <input type="text" class="form-control" id="searchBar" placeholder="Search a restaurant by name.">
-                        </br>
-                      </div>
-                    <!--END Search-->
-                  </div>
-              </div>
-          </div>
-      </div>
-    </header>
-    <!-- END Header -->
 
-    <!-- RESTAURANT-->
-    <section id="restaurant" class="">
-      <div class="container">
+    <!-- Restaurant List -->
+    <div class="container" id="RestaurantList">
+      <div class="row">
+        <div class="col-lg-12">
+                <h1 class="page-header" id="Near-Search">Restaurants Near You: </h1>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+          <a class="thumbnail" href="#">
+            <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+            <h3> Restaurant Name</h3><h4>Mexican Food</h4>
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+          <a class="thumbnail" href="#">
+            <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+            <h3> Restaurant Name</h3><h4>Mexican Food</h4>
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+          <a class="thumbnail" href="#">
+            <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+            <h3> Restaurant Name</h3><h4>Mexican Food</h4>
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+          <a class="thumbnail" href="#">
+            <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+            <h3> Restaurant Name</h3><h4>Mexican Food</h4>
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+          <a class="thumbnail" href="#">
+            <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+            <h3> Restaurant Name</h3><h4>Mexican Food</h4>
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+          <a class="thumbnail" href="#">
+            <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+            <h3> Restaurant Name</h3><h4>Mexican Food</h4>
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+          <a class="thumbnail" href="#">
+            <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+            <h3> Restaurant Name</h3><h4>Mexican Food</h4>
+          </a>
+        </div>
 
-      </div>
-  </section>
-  <!-- END RESTAURANT-->
+    </div>
+    <!-- END Restaurant List -->
 
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2017 Food Service&trade;</p>
+            <p>&copy; 2017 EatGo&trade;</p>
             <ul class="list-inline">
                 <li>
                     <a href="#">Privacy</a>
@@ -124,5 +150,21 @@
 
       })(jQuery); // End of use strict
     </script>
+    <style>
+      .hover:hover{
+        border: 5px solid #2B4A78;
+      }
+      @media (min-width: 992px) {
+        .container-fluid.my-own-class {
+          overflow-x: scroll;
+          white-space: nowrap;
+        }
+        .container-fluid.my-own-class .col-sm-3 {
+          display: inline-block;
+          vertical-align: top;
+          float: none;
+        }
+      }
+    </style>
   </body>
 </html>
