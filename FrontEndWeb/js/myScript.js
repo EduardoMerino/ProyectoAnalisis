@@ -36,9 +36,9 @@ function positionError(err){
 
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(positionSuccess, positionError, options);
+      return navigator.geolocation.getCurrentPosition(positionSuccess, positionError, options);
     } else {
-      position = null;
+      return null;
     }
 }
 /* END Get Geolocation */
@@ -62,8 +62,7 @@ function displayRestaurants(){
   var foodType = "";
   var image = "";
   var pageLink = "";
-  dbRestaurantList.once("value")
-  .then(function(snapshot){
+  dbRestaurantList.once("value").then(function(snapshot){
     snapshot.forEach(function(childSnapshot){
       restaurantName = childSnapshot.child("restaurantName").val();
       foodType = childSnapshot.child("foodType").val();
@@ -76,7 +75,14 @@ function displayRestaurants(){
 }
 
 $(document).ready(function(){
-    displayRestaurants();
-    getLocation();
+  displayRestaurants();
+  try{
+    if (localStorage.getItem("currentLocation") === null) {
+      // Code for localStorage/sessionStorage.
+      localStorage.setItem("currentLocation", getLocation());
+    }
+  } catch(e){
+    // Sorry! No Web Storage support..
+    position = getLocation();
   }
-);
+});
