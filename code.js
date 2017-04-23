@@ -1,4 +1,4 @@
-
+//firebase stuff
 var config = {
         apiKey: "AIzaSyA3nEFB_6WqKuhp_oQ406Tt1pc7i8uIHOc",
         authDomain: "eatgo-aba93.firebaseapp.com",
@@ -19,40 +19,38 @@ initApp = function() {
       var photoURL = user.photoURL;
       var uid = user.uid;
       var providerData = user.providerData;
-            /*user.getToken().then(function(accessToken) {
-              document.getElementById('sign-in-status').textContent = 'Signed in';
-              document.getElementById('sign-in').textContent = 'Sign out';
-              document.getElementById('account-details').textContent = JSON.stringify({
-                displayName: displayName,
-                email: email,
-                emailVerified: emailVerified,
-                photoURL: photoURL,
-                uid: uid,
-                accessToken: accessToken,
-                providerData: providerData
-              }, null, '  ');
-            });*/
     }
-    else {
+    /*else {
             // User is signed out.
       document.getElementById('sign-in-status').textContent = 'Signed out';
       document.getElementById('sign-in').textContent = 'Sign in';
       document.getElementById('account-details').textContent = 'null';
-    }
+    }*/
   }, function(error) {
           console.log(error);
         });
 };
+//end of firebase stuff
+
 function Generate()
 {
   firebase.auth().onAuthStateChanged(function(user) {
     if (user)
     {
-      // User is signed in.
-      firebase.database().ref('users/' + user.uid).set({
-        username: user.displayName,
-        email: user.email
-      });
+      if(document.getElementById('Cliente').checked)
+      {
+        firebase.database().ref('users/' + user.uid).set({
+          username: user.displayName,
+          typeOfUser: "Cliente"
+        });
+      }
+      else if(document.getElementById('Restaurante').checked)
+      {
+        firebase.database().ref('users/' + user.uid).set({
+          nameOfRestaurant: document.getElementById('inputRestaurant').value,
+          typeOfUser: "Restaurante"
+        });
+      }
     }
     else
     {
@@ -60,4 +58,17 @@ function Generate()
       console.log("no user");
     }
   });
+}
+function changeDisplay()
+{
+  if(document.getElementById('Cliente').checked)
+  {
+    $('formClient').css('display', 'inline')
+    $('formRestaurant').css('display', 'none')
+  }
+  else if(document.getElementById('Restaurante').checked)
+  {
+    $('formClient').css('display', 'none')
+    $('formRestaurant').css('display', 'inline')
+  }
 }
