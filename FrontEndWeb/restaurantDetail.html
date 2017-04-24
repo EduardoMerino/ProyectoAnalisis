@@ -17,7 +17,7 @@
     <!-- Scripts -->
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
-    <script src="js/myScript.js"></script>
+    <script src="js/detailScript.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -51,7 +51,7 @@
         <!-- Portfolio Item Heading -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Restaurant name</h1>
+                <h1 class="page-header" id=restaurantName>Restaurant name</h1>
             </div>
         </div>
         <!-- /.row -->
@@ -59,8 +59,8 @@
         <!-- Portfolio Item Row -->
         <div class="row">
 
-            <div class="col-md-8">
-                <img class="img-responsive" src="http://placehold.it/750x500" alt="">
+            <div class="col-lg-6 col-md-6 col-xs-12">
+                <img class="img-responsive"  id="restImage" src="http://placehold.it/750x500" alt="">
                 <h3>Rating</h3>
                 <fieldset class="rating">
                     <input type="radio" id="star5" name="rating" value="5" /><label class="full" for="star5" title="Awesome - 5 stars"></label>
@@ -75,106 +75,33 @@
                     <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
                 </fieldset>
             </div>
-
-            <div class="col-md-4">
-                <div id="map" style="width:400px;height:400px"></div>
-                <script>
-                    function initMap() {
-                        var uluru = {
-                            lat: -25.363,
-                            lng: 131.044
-                        };
-                        var map = new google.maps.Map(document.getElementById('map'), {
-                            zoom: 4,
-                            center: uluru
-                        });
-                        var marker = new google.maps.Marker({
-                            position: uluru,
-                            map: map
-                        });
-                    }
-                </script>
-                <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2kjqQ5EAm7nVHL3zqEGYSaZnmLueDnDU&callback=initMap">
-                </script>
-                <h3>Food type:
+                <div class="col-lg-6 col-md-6 col-xs-12" style="padding: 10px">
+                  <h3 id="foodType">Food type:
                     <small>Mexican food</small>
-                </h3>
-                <h3>Schedule:
+                  </h3>
+                  <h3>Schedule:
                     <small>Monday</small>
-                </h3>
-                <h3>Address:
+                  </h3>
+                  <h3>Address:
                     <small>Av. Calle # 123</small>
-                </h3>
-                <h3>Delivery service:
+                  </h3>
+                  <h3>Delivery service:
                     <small>YES</small>
-                </h3>
-                <h3>Phone:
+                  </h3>
+                  <h3>Phone:
                     <small>12</small>
-                </h3>
+                  </h3>
+                  <button type="button" class="btn btn-success" id="btnBuy">BUY x ITEMS</button>
             </div>
 
         </div>
         <!-- /.row -->
 
         <!-- Menu Row -->
-        <div class="row">
-
+        <div class="row" id="dishListElement">
             <div class="col-lg-12">
                 <h3 class="page-header">Menu</h3>
             </div>
-
-            <div class="col-sm-3 col-xs-6">
-                <a class="thumbnail" href="#">
-                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-                    <h3>Tacos</h3>
-                    <h4>Order of three tacos</h4>
-                </a>
-            </div>
-
-            <div class="col-sm-3 col-xs-6">
-                <a class="thumbnail" href="#">
-                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
-            <div class="col-sm-3 col-xs-6">
-                <a class="thumbnail" href="#">
-                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
-            <div class="col-sm-3 col-xs-6">
-                <a class="thumbnail" href="#">
-                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
-            <div class="col-sm-3 col-xs-6">
-                <a class="thumbnail" href="#">
-                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-                    <h3>Coca Cola</h3>
-                    <h4>600 ml</h4>
-                </a>
-            </div>
-
-            <div class="col-sm-3 col-xs-6">
-                <a class="thumbnail" href="#">
-                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
-            <div class="col-sm-3 col-xs-6">
-                <a class="thumbnail" href="#">
-                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
-            <div class="col-sm-3 col-xs-6">
-                <a class="thumbnail" href="#">
-                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
         </div>
         <!-- END Menu -->
 
