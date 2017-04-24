@@ -16,7 +16,12 @@
  * Only works on HTTPS
  */
 
-var position;
+var myPosition = {
+  latitude : "",
+  longitude: ""
+}
+
+var success = false;
 
 var options = {
   enableHighAccuracy: true,
@@ -25,8 +30,11 @@ var options = {
 };
 
 function positionSuccess(pos){
-  position = pos;
-  console.log("POSITION: " + position.coords.latitude + ", " + position.coords.longitude);
+  myPosition.latitude = "" + pos.coords.latitude;
+  myPosition.longitude = "" + pos.coords.longitude;
+  success = true;
+  console.log(JSON.stringify(myPosition));
+  console.log("POSITION: " + pos.coords.latitude + ", " + pos.coords.longitude);
 }
 
 function positionError(err){
@@ -36,9 +44,9 @@ function positionError(err){
 
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(positionSuccess, positionError, options);
+      navigator.geolocation.getCurrentPosition(positionSuccess, positionError, options);
     } else {
-      position = null;
+      console.log("NO geolocation");
     }
 }
 /* END Get Geolocation */
@@ -47,10 +55,10 @@ function getLocation() {
 //We need to fill dose variables with data from firebase.
 //We need to call this function inside a recursion to
 //load all restaurants.
-function addRestaurant(restaurantName, foodType, image, pageLink){
+function addRestaurant(restaurantName, foodType, image, restaurantId){
   $("#RestaurantListElement").append("" +
-    "<div class='col-lg-3 col-md-4 col-xs-6 thumb'><a class='thumbnail' href='"+
-    pageLink + "'>" + "<img class='img-responsive' src='" + image + "' alt='"+
+    "<div class='col-lg-3 col-md-4 col-xs-6 thumb'><a class='thumbnail' id='"+restaurantId+"' href='"+
+    "restaurantDetail.html?"+restaurantId + "'>" + "<img class='img-responsive' src='" + image + "' alt='"+
     restaurantName +"'> "+ "<h3>" + restaurantName + "</h3><h4>" + foodType
     + "</h4></a></div>");
 }
@@ -62,21 +70,43 @@ function displayRestaurants(){
   var foodType = "";
   var image = "";
   var pageLink = "";
-  dbRestaurantList.once("value")
-  .then(function(snapshot){
+  dbRestaurantList.once("value").then(function(snapshot){
     snapshot.forEach(function(childSnapshot){
       restaurantName = childSnapshot.child("restaurantName").val();
       foodType = childSnapshot.child("foodType").val();
       image = childSnapshot.child("image").val();
       pageLink = childSnapshot.child("pageLink").val();
 
-      addRestaurant(restaurantName, foodType, image, pageLink);
+      addRestaurant(restaurantName, foodType, image, childSnapshot.key);
     });
   });
 }
 
 $(document).ready(function(){
-    displayRestaurants();
+  displayRestaurants();
+  $("#myForm").hide();
+  localStorage.removeItem("currentLocation");
+  var promise = new Promise(function(resolve, reject) {
+    // do a thing, possibly async, then…
     getLocation();
-  }
-);
+    resolve("Stuff worked!");
+  });
+  promise.then(function(result){
+    //localStorage.setItem("currentLocation", JSON.stringify(myPosition));
+    if (typeof(Storage) !== "undefined") {
+      // Code for localStorage/sessionStorage.
+      if(localStorage.getItem("currentLocation") === null){
+        console.log("NO CURR POS");
+        console.log(result);
+        localStorage.setItem("currentLocation",JSON.stringify(myPosition));
+        console.log("LOCAL STORAGE: " + localStorage.getItem("currentLocation"));
+      }
+    } else {
+      // Sorry! No Web Storage support..
+      console.log("NO LOCAL STORAGE");
+      getLocation();
+    }
+  }, function(error){
+    console.log(error());
+  });
+});
