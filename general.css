@@ -1,0 +1,18 @@
+.form-signin
+{
+	text-align: center;
+	background-color: lightgrey;
+	margin-top: 2.5%;
+}
+.formClient
+{
+	display: none;
+}
+.formRestaurant
+{
+	display: none;
+}
+.toRemove
+{
+	display: inline;
+}

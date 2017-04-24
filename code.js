@@ -8,7 +8,6 @@ var config = {
         messagingSenderId: "191016095386"
       };
       firebase.initializeApp(config);
-var database=firebase.database();
 initApp = function() {
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -43,13 +42,18 @@ function Generate()
           username: user.displayName,
           typeOfUser: "Cliente"
         });
+        $(location).attr('href', 'client.html')
       }
       else if(document.getElementById('Restaurante').checked)
       {
-        firebase.database().ref('users/' + user.uid).set({
-          nameOfRestaurant: document.getElementById('inputRestaurant').value,
-          typeOfUser: "Restaurante"
-        });
+        if(document.getElementById('inputRestaurant').value!=="")
+        {
+          firebase.database().ref('users/' + user.uid).set({
+            nameOfRestaurant: document.getElementById('inputRestaurant').value,
+            typeOfUser: "Restaurante"
+          });
+          $(location).attr('href', 'restaurant.html')
+        }
       }
     }
     else
@@ -63,12 +67,37 @@ function changeDisplay()
 {
   if(document.getElementById('Cliente').checked)
   {
-    $('formClient').css('display', 'inline')
-    $('formRestaurant').css('display', 'none')
+    $('.formClient').css('display', 'inline')
+    $('.formRestaurant').css('display', 'none')
+    $('.toRemove').css('display', 'none')
   }
   else if(document.getElementById('Restaurante').checked)
   {
-    $('formClient').css('display', 'none')
-    $('formRestaurant').css('display', 'inline')
+    $('.formClient').css('display', 'none')
+    $('.formRestaurant').css('display', 'inline')
+    $('.toRemove').css('display', 'none')
   }
 }
+$(document).ready(function()
+{
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      //var commentsRef = firebase.database().ref('users/' + user.uid);
+      var users = firebase.database().ref("users").once("value").then(function(snapshot) {
+        if(snapshot.hasChild(user.uid))
+        {
+          if(snapshot.child(user.uid).child("typeOfUser").val()=="Cliente")
+          {
+            $(location).attr('href', 'client.html');
+          }
+          else
+          {
+            $(location).attr('href', 'restaurant.html');
+          }
+        }
+      });
+    } else {
+      // No user is signed in.
+    }
+  })
+});
