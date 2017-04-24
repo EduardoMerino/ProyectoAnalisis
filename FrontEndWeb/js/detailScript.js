@@ -39,6 +39,10 @@ function addToCart(itemId){
 
 }
 
+function orderBtn(){
+  
+}
+
 function addDishes(dishId, dishName, image, price, dishDescription){
   $("#dishListElement").append("" +
     "<div class='col-sm-3 col-xs-6' style='word-wrap: break-word;'>"+

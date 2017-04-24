@@ -16,7 +16,12 @@
  * Only works on HTTPS
  */
 
-var position;
+var myPosition = {
+  latitude : "",
+  longitude: ""
+}
+
+var success = false;
 
 var options = {
   enableHighAccuracy: true,
@@ -25,8 +30,11 @@ var options = {
 };
 
 function positionSuccess(pos){
-  position = pos;
-  console.log("POSITION: " + position.coords.latitude + ", " + position.coords.longitude);
+  myPosition.latitude = "" + pos.coords.latitude;
+  myPosition.longitude = "" + pos.coords.longitude;
+  success = true;
+  console.log(JSON.stringify(myPosition));
+  console.log("POSITION: " + pos.coords.latitude + ", " + pos.coords.longitude);
 }
 
 function positionError(err){
@@ -36,9 +44,9 @@ function positionError(err){
 
 function getLocation() {
     if (navigator.geolocation) {
-      return navigator.geolocation.getCurrentPosition(positionSuccess, positionError, options);
+      navigator.geolocation.getCurrentPosition(positionSuccess, positionError, options);
     } else {
-      return null;
+      console.log("NO geolocation");
     }
 }
 /* END Get Geolocation */
@@ -54,8 +62,6 @@ function addRestaurant(restaurantName, foodType, image, restaurantId){
     restaurantName +"'> "+ "<h3>" + restaurantName + "</h3><h4>" + foodType
     + "</h4></a></div>");
 }
-
-
 
 //Go throug restaurants and display them
 function displayRestaurants(){
@@ -79,13 +85,28 @@ function displayRestaurants(){
 $(document).ready(function(){
   displayRestaurants();
   $("#myForm").hide();
-  try{
-    if (localStorage.getItem("currentLocation") === null) {
+  localStorage.removeItem("currentLocation");
+  var promise = new Promise(function(resolve, reject) {
+    // do a thing, possibly async, then…
+    getLocation();
+    resolve("Stuff worked!");
+  });
+  promise.then(function(result){
+    //localStorage.setItem("currentLocation", JSON.stringify(myPosition));
+    if (typeof(Storage) !== "undefined") {
       // Code for localStorage/sessionStorage.
-      localStorage.setItem("currentLocation", getLocation());
+      if(localStorage.getItem("currentLocation") === null){
+        console.log("NO CURR POS");
+        console.log(result);
+        localStorage.setItem("currentLocation",JSON.stringify(myPosition));
+        console.log("LOCAL STORAGE: " + localStorage.getItem("currentLocation"));
+      }
+    } else {
+      // Sorry! No Web Storage support..
+      console.log("NO LOCAL STORAGE");
+      getLocation();
     }
-  } catch(e){
-    // Sorry! No Web Storage support..
-    position = getLocation();
-  }
+  }, function(error){
+    console.log(error());
+  });
 });
