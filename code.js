@@ -78,26 +78,12 @@ function changeDisplay()
     $('.toRemove').css('display', 'none')
   }
 }
-$(document).ready(function()
+
+function makePush()
 {
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      //var commentsRef = firebase.database().ref('users/' + user.uid);
-      var users = firebase.database().ref("users").once("value").then(function(snapshot) {
-        if(snapshot.hasChild(user.uid))
-        {
-          if(snapshot.child(user.uid).child("typeOfUser").val()=="Cliente")
-          {
-            $(location).attr('href', 'client.html');
-          }
-          else
-          {
-            $(location).attr('href', 'restaurant.html');
-          }
-        }
-      });
-    } else {
-      // No user is signed in.
-    }
-  })
-});
+  var key = firebase.database().ref("pedido").push().key;
+
+  firebase.database().ref('pedido/' + key).set({
+          typeOfUser: "Cliente"
+        });
+}

@@ -21,6 +21,32 @@
     <title>EatGo</title>
     <!-- javascript que se utilizará en la página -->
     <script src="code.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function()
+      {
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            //var commentsRef = firebase.database().ref('users/' + user.uid);
+            var users = firebase.database().ref("users").once("value").then(function(snapshot) {
+              if(snapshot.hasChild(user.uid))
+              {
+                if(snapshot.child(user.uid).child("typeOfUser").val()=="Cliente")
+                {
+                  $(location).attr('href', 'client.html');
+                }
+                else
+                {
+                  $(location).attr('href', 'restaurant.html');
+                }
+              }
+            });
+          } else {
+            // No user is signed in.
+            $(location).attr('href', 'login.html');
+          }
+        })
+      });
+    </script>
   </head>
   <body class="form-signin">
     <div class="container">
@@ -37,7 +63,9 @@
             <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="Generate();">Go!</button>
           </div>
           <div class="formRestaurant">
-            <input type="text" id="inputRestaurant" class="form-control" placeholder="Nombre del Restaurante" required>
+              <input type="text" id="inputRestaurant" class="form-control" placeholder="Nombre del Restaurante" required>
+              <input type="text" id="inputRestaurant" class="form-inline" placeholder="Latitud" required>
+              <input type="text" id="inputRestaurant" class="form-inline" placeholder="Longitud" required>
             </br>
             
             <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d17750.0897439398!2d-103.45496223626215!3d20.73065235029113!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2smx!4v1492992275733" width=100% height= "400" frameborder="0" style="border:0"></iframe>
