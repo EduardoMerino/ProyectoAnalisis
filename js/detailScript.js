@@ -17,9 +17,9 @@ var id;
 //We need to fill dose variables with data from firebase.
 //We need to call this function inside a recursion to
 //load all restaurants.
-function addDish(id, dishName, dishDescription, image){
+function addDish(pid, dishName, dishDescription, image){
   $("").append("" + "<div class='col-sm-3 col-xs-6'>"+
-      "<a class='thumbnail' id='"+"dish"+id+"' href='javascript:addToCart(this.id)'>"+
+      "<a class='thumbnail' id='"+"dish"+pid+"' href='javascript:addToCart(this.id)'>"+
           "<img class='img-responsive portfolio-item' src='"+image+"' alt='"+dishName+"'>"+
           "<h3>"+dishName+"</h3>"+
           "<h4>"+dishDescription+"</h4>"+
@@ -27,26 +27,57 @@ function addDish(id, dishName, dishDescription, image){
 }
 
 var cart = 0;
+var total = 0;
+var plat = [];
 
 function addToCart(itemId){
-  var id = "";
-  id = itemId.replace("dish","");
+  var myid = "";
+  myid = itemId.replace("dish","");
+  console.log("myid : " + myid);
+  var myplat = new Platillo();
+  var dbRestaurantList = database.ref("Restaurant/"+id+"/menu/"+myid).orderByKey();
+  dbRestaurantList.once("value").then(function(snapshot){
+    myplat.id = myid;
+    myplat.nombre = snapshot.child("name").val();
+    myplat.precio = parseFloat(snapshot.child("price").val());
+    total += myplat.precio;
+  });
   cart++;
   if(cart > 0){
     document.getElementById("btnBuy").innerText = "Buy " + cart + " items";
     $("#btnBuy").show();
   }
+  plat.push(myplat);
+  console.log(plat);
 
 }
 
 function orderBtn(){
-  
+  var pedido = new Pedido();
+  pedido.platillos = plat;
+  pedido.total = total;
+  var currentdate = new Date();
+  var datetime = "Last Sync: " + currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/"
+                + currentdate.getFullYear() + " @ "
+                + currentdate.getHours() + ":"
+                + currentdate.getMinutes() + ":"
+                + currentdate.getSeconds();
+  pedido.date = datetime;
+  pedido.restaurante = id;
+  if (typeof Storage !== "undefined") {
+    // window.localStorage is available!
+     sessionStorage.setItem("pedido", JSON.stringify(pedido));
+  } else {
+    // no native support for HTML5 storage :(
+    // maybe try dojox.storage or a third-party solution
+  }
 }
 
 function addDishes(dishId, dishName, image, price, dishDescription){
   $("#dishListElement").append("" +
     "<div class='col-sm-3 col-xs-6' style='word-wrap: break-word;'>"+
-        "<a class='thumbnail' id='"+"dish"+dishId+"' href='javascript:addToCart(this.id)'>"+
+        "<a class='thumbnail' id='"+"dish"+dishId+"' href='#btnBuy' onclick='addToCart(this.id)'>"+
             "<img class='img-responsive portfolio-item' src='"+image+"' alt='"+dishName+"'>"+
             "<h3>"+dishName+"</h3>"+
             "<h4>$"+price+"</h4>"+
@@ -64,11 +95,11 @@ function displayDishes(){
   var dishDescription;
   dbRestaurantList.once("value").then(function(snapshot){
     snapshot.forEach(function(childSnapshot){
-      dishDescription = childSnapshot.key;
+      dishId = childSnapshot.key;
+      dishDescription = childSnapshot.child("description").val();
       dishName = childSnapshot.child("name").val();
       image = childSnapshot.child("image").val();
       price = childSnapshot.child("price").val();
-      dishDescription = childSnapshot.child("name").val();
 
       addDishes(dishId, dishName, image, price, dishDescription);
     });
