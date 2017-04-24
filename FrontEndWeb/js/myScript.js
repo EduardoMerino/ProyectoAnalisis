@@ -33,7 +33,7 @@ function positionSuccess(pos){
   myPosition.latitude = "" + pos.coords.latitude;
   myPosition.longitude = "" + pos.coords.longitude;
   success = true;
-  console.log(JSON.stringify(myPosition));
+  localStorage.setItem("currentLocation",JSON.stringify(myPosition));
   console.log("POSITION: " + pos.coords.latitude + ", " + pos.coords.longitude);
 }
 
@@ -84,7 +84,6 @@ function displayRestaurants(){
 
 $(document).ready(function(){
   displayRestaurants();
-  $("#myForm").hide();
   localStorage.removeItem("currentLocation");
   var promise = new Promise(function(resolve, reject) {
     // do a thing, possibly async, then…
@@ -98,7 +97,6 @@ $(document).ready(function(){
       if(localStorage.getItem("currentLocation") === null){
         console.log("NO CURR POS");
         console.log(result);
-        localStorage.setItem("currentLocation",JSON.stringify(myPosition));
         console.log("LOCAL STORAGE: " + localStorage.getItem("currentLocation"));
       }
     } else {
