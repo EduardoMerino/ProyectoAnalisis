@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>EatGo</title>
+
+    <!--Stylesheets-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/new-age.min.css" rel="stylesheet">
+    <link href="css/myStyles.css" rel="stylesheet">
+    <link href="css/Thumbnail-gallery.css" rel="stylesheet">
+
+    <!-- Scripts -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+    <script src="js/myScript.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <!-- Nav Bar -->
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header" style="padding-bottom:9px">
+                <a class="navbar-brand page-scroll" href="home.html" style="padding:0px">
+                  <h3>
+                    <span class="glyphicon glyphicon-cutlery"></span>
+                    EatGo
+                  </h3>
+                </a>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <!-- END Nav Bar -->
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Portfolio Item Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Restaurant name</h1>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Portfolio Item Row -->
+        <div class="row">
+
+            <div class="col-md-8">
+                <img class="img-responsive" src="http://placehold.it/750x500" alt="">
+                <h3>Rating</h3>
+                <fieldset class="rating">
+                    <input type="radio" id="star5" name="rating" value="5" /><label class="full" for="star5" title="Awesome - 5 stars"></label>
+                    <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+                    <input type="radio" id="star4" name="rating" value="4" /><label class="full" for="star4" title="Pretty good - 4 stars"></label>
+                    <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                    <input type="radio" id="star3" name="rating" value="3" /><label class="full" for="star3" title="Meh - 3 stars"></label>
+                    <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                    <input type="radio" id="star2" name="rating" value="2" /><label class="full" for="star2" title="Kinda bad - 2 stars"></label>
+                    <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+                    <input type="radio" id="star1" name="rating" value="1" /><label class="full" for="star1" title="Sucks big time - 1 star"></label>
+                    <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                </fieldset>
+            </div>
+
+            <div class="col-md-4">
+                <div id="map" style="width:400px;height:400px"></div>
+                <script>
+                    function initMap() {
+                        var uluru = {
+                            lat: -25.363,
+                            lng: 131.044
+                        };
+                        var map = new google.maps.Map(document.getElementById('map'), {
+                            zoom: 4,
+                            center: uluru
+                        });
+                        var marker = new google.maps.Marker({
+                            position: uluru,
+                            map: map
+                        });
+                    }
+                </script>
+                <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2kjqQ5EAm7nVHL3zqEGYSaZnmLueDnDU&callback=initMap">
+                </script>
+                <h3>Food type:
+                    <small>Mexican food</small>
+                </h3>
+                <h3>Schedule:
+                    <small>Monday</small>
+                </h3>
+                <h3>Address:
+                    <small>Av. Calle # 123</small>
+                </h3>
+                <h3>Delivery service:
+                    <small>YES</small>
+                </h3>
+                <h3>Phone:
+                    <small>12</small>
+                </h3>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+        <!-- Menu Row -->
+        <div class="row">
+
+            <div class="col-lg-12">
+                <h3 class="page-header">Menu</h3>
+            </div>
+
+            <div class="col-sm-3 col-xs-6">
+                <a class="thumbnail" href="#">
+                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
+                    <h3>Tacos</h3>
+                    <h4>Order of three tacos</h4>
+                </a>
+            </div>
+
+            <div class="col-sm-3 col-xs-6">
+                <a class="thumbnail" href="#">
+                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
+
+            <div class="col-sm-3 col-xs-6">
+                <a class="thumbnail" href="#">
+                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
+
+            <div class="col-sm-3 col-xs-6">
+                <a class="thumbnail" href="#">
+                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
+
+            <div class="col-sm-3 col-xs-6">
+                <a class="thumbnail" href="#">
+                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
+                    <h3>Coca Cola</h3>
+                    <h4>600 ml</h4>
+                </a>
+            </div>
+
+            <div class="col-sm-3 col-xs-6">
+                <a class="thumbnail" href="#">
+                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
+
+            <div class="col-sm-3 col-xs-6">
+                <a class="thumbnail" href="#">
+                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
+
+            <div class="col-sm-3 col-xs-6">
+                <a class="thumbnail" href="#">
+                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
+
+        </div>
+        <!-- END Menu -->
+
+        <div class="row">
+          </br></br></br></br>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <p>&copy; 2017 EatGo&trade;</p>
+                <ul class="list-inline">
+                    <li>
+                        <a href="#">Privacy</a>
+                    </li>
+                    <li>
+                        <a href="#">Terms</a>
+                    </li>
+                    <li>
+                        <a href="#">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
+        <!-- END Footer -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+      (function($) {
+        "use strict"; // Start of use strict
+        // jQuery for page scrolling feature - requires jQuery Easing plugin
+        $(document).on('click', 'a.page-scroll', function(event) {
+          var $anchor = $(this);
+          $('html, body').stop().animate({
+            scrollTop: ($($anchor.attr('href')).offset().top - 50)
+          }, 1250, 'easeInOutExpo');
+          event.preventDefault();
+        });
+
+        // Highlight the top nav as scrolling occurs
+        $('body').scrollspy({
+          target: '.navbar-fixed-top',
+          offset: 100
+        });
+
+        // Closes the Responsive Menu on Menu Item Click
+        $('.navbar-collapse ul li a').click(function() {
+          $('.navbar-toggle:visible').click();
+        });
+
+        // Offset for Main Navigation
+        $('#mainNav').affix({
+          offset: {
+            top: 50
+          }
+        })
+
+      })(jQuery); // End of use strict
+    </script>
+    <style>
+      .hover:hover{
+        border: 5px solid #2B4A78;
+      }
+      @media (min-width: 992px) {
+        .container-fluid.my-own-class {
+          overflow-x: scroll;
+          white-space: nowrap;
+        }
+        .container-fluid.my-own-class .col-sm-3 {
+          display: inline-block;
+          vertical-align: top;
+          float: none;
+        }
+      }
+    </style>
+  </body>
+
+</html>

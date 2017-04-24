@@ -1,0 +1,38 @@
+body {
+  position: center;
+  width: auto;
+  color: black;
+  background: url(""), #7b4397;
+  /* fallback for old browsers */
+  background: url(""), -webkit-linear-gradient(to left, #5793CF, #B7C9D4);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: url(""), linear-gradient(to left, #5793CF, #B7C9D4);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.header-content {
+  height: 20px;
+  text-align: center;
+  padding: 50px 0 50px;
+  position: center;
+  width: auto;
+}
+header .header-content .header-content-inner {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 80px;
+  width: 100%;
+  overflow:hidden;
+}
+
+.Order{
+  height: auto;
+  background-color: white;
+  margin-bottom: 10px;
+}

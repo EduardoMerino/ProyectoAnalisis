@@ -1,0 +1,39 @@
+/* light orange: #FF8719 */
+/* light blue: #FF8719 */
+/* darker blue: #0090B2 */
+/* complement orange: #FF7A00 */
+/* red-ish orange: #FF3B19 */
+/* background red: #B21800 */
+
+body {
+  position: center;
+  width: auto;
+  background: url(""), #7b4397;
+  /* fallback for old browsers */
+  background: url(""), -webkit-linear-gradient(to left, #FF3B19, #FF8719);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: url(""), linear-gradient(to left, #FF3B19, #FF8719);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: white;
+}
+.header-content {
+  height: 20px;
+  text-align: center;
+  padding: 50px 0 50px;
+  position: center;
+  width: auto;
+}
+header .header-content .header-content-inner {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 80px;
+  width: 100%;
+  overflow:hidden;
+}
