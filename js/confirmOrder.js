@@ -22,7 +22,7 @@ function postOrder() {
     var key = firebase.database().ref("Pedido").push().key;
 
     firebase.database().ref('Pedido/' + key).set({
-        id: "1",
+        id: "",
         user: "qw",
         restaurant: "rt",
         platillos: "dfghj",

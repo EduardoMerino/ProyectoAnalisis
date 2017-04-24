@@ -6,8 +6,21 @@ function Pedido() {
     this.repartidor = "";
     this.date = "";
     this.status = "";
+    this.total = "";
     this.actualizarStatus = function(sts) {
         this.status = sts;
+    }
+    this.setPlatillos = function(platillos) {
+        this.platillos = platillos;
+    }
+    this.setTotal = function(total) {
+        this.total = total;
+    }
+    this.setDate = function(date) {
+        this.date = date;
+    }
+    this.setDate = function(restaurante) {
+        this.restaurante = restaurante;
     }
 }
 
@@ -106,6 +119,7 @@ function Platillo() {
     this.name = "";
     this.description = "";
     this.photo = "";
+    this.price = "";
     this.setNombre = function(name) {
         this.name = name;
     }
@@ -126,4 +140,12 @@ function Platillo() {
     this.getPhoto = function() {
         return this.photo;
     }
+    this.setPrice = function(price) {
+        this.price = price;
+    }
+
+    this.getPrice = function() {
+        return this.price;
+    }
+}
 }
