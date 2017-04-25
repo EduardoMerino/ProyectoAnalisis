@@ -13,18 +13,7 @@ var id;
   const database = firebase.database();
 /* END Initialize Firebase */
 
-/* Append Dish */
-//We need to fill dose variables with data from firebase.
-//We need to call this function inside a recursion to
-//load all restaurants.
-function addDish(pid, dishName, dishDescription, image){
-  $("").append("" + "<div class='col-sm-3 col-xs-6'>"+
-      "<a class='thumbnail' id='"+"dish"+pid+"' href='javascript:addToCart(this.id)'>"+
-          "<img class='img-responsive portfolio-item' src='"+image+"' alt='"+dishName+"'>"+
-          "<h3>"+dishName+"</h3>"+
-          "<h4>"+dishDescription+"</h4>"+
-      "</a></div>");
-}
+
 
 var cart = 0;
 var total = 0;
@@ -113,6 +102,10 @@ function cosnstructPage(){
     $("#restaurantName").text(""+snapshot.child("restaurantName").val());
     document.getElementById("restImage").src = ""+snapshot.child("image").val();
     $("#foodType").text(""+snapshot.child("foodType").val());
+    $("#schedule").text("Schedule: "+snapshot.child("schedule").val());
+    $("#address").text("address: "+snapshot.child("address").val());
+    $("#delivery").text("Delivery Service: "+snapshot.child("delivery").val());
+    $("#phone").text("Phone: "+snapshot.child("phone").val());
   });
 }
 

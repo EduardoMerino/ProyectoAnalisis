@@ -19,6 +19,9 @@ function postOrder(){
   //hacer post del pedido
   //habrir pag de fin
   //console.log("ok");
+  var k = database.ref("Restaurant/"+pedido.restaurante+"Order").push();
+  database.ref("Restaurant/"+pedido.restaurante+"/Order/"+k.key).set(pedido);
+  location.replace("thankYou.html");
 }
 
 function cancelOrder(){
