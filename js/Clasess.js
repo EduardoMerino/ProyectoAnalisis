@@ -148,4 +148,3 @@ function Platillo() {
         return this.price;
     }
 }
-}

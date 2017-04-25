@@ -1,4 +1,5 @@
 var id;
+
 /* Initialize Firebase */
 // Edit this to connect to the right Firebase
 var config = {
@@ -107,7 +108,7 @@ function displayDishes() {
 }
 
 //cosnstruct page
-function cosnstructPage() {
+function constructPage() {
     var dbRestaurant = database.ref("Restaurant/" + id);
     dbRestaurant.once("value").then(function(snapshot) {
         $("#restaurantName").text("" + snapshot.child("restaurantName").val());
@@ -122,7 +123,6 @@ $(document).ready(function() {
     id = document.URL.substr(url, document.URL.length);
     id = id.replace("?", "");
     displayDishes();
-    cosnstructPage();
+    constructPage();
     console.log(id);
-
 });
