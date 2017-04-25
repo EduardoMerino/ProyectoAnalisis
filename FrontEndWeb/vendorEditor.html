@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>EatGoVendor</title>
+
+    <!--Stylesheets-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/new-age.min.css" rel="stylesheet">
+    <link href="css/vendorStyles.css" rel="stylesheet">
+    <link href="css/Thumbnail-gallery.css" rel="stylesheet">
+
+    <!-- Scripts -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/editor.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function()
+      {
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            //var commentsRef = firebase.database().ref('users/' + user.uid);
+            var users = firebase.database().ref("Restaurant/"+user.uid).once("value").then(function(snapshot) {
+                document.getElementById('restaurantName').value=snapshot.child("nameOfRestaurant").val();
+                document.getElementById('foodType').value=snapshot.child("typeFood").val();
+                document.getElementById('schedule').value=snapshot.child("schedule").val();
+                document.getElementById('address').value=snapshot.child("address").val();
+                document.getElementById('delivery').checked=snapshot.child("delivery").val();
+                document.getElementById('phone').value=snapshot.child("phone").val();
+                document.getElementById('image').value=snapshot.child("image").val();
+            });
+          } else {
+            // No user is signed in.
+          }
+        })
+      });
+    </script>
+</head>
+
+<body>
+    <!-- Nav Bar -->
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header" style="padding-bottom:9px">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+              </button>
+              <a class="navbar-brand page-scroll" href="vendorTerminal.html" style="padding:0px">
+                <h3 style="color: black">
+                  <span class="glyphicon glyphicon-cutlery"></span>
+                  EatGo Vendor
+                </h3>
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                  <li>
+                    <a class="page-scroll" href="vendorAddDish.html"><h5>+ Add Dish</h5></a>
+                  </li>
+                  <li>
+                      <a class="page-scroll" href="vendorOrders.html"><h5>All Order's</h5></a>
+                  </li>
+                  <li>
+                      <a class="page-scroll" href="vendorEditor.html"><h5><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>Settings</h5></a>
+                  </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <!-- END Nav Bar -->
+
+
+    <!-- Orders List -->
+    <div class="container" id="RestaurantList">
+        <div class="row" id="RestaurantListElement">
+            <div class="col-lg-12">
+                <h1 class="page-header" id="Near-Search">Edit information </h1>
+            </div>
+
+            <!-- Order -->
+            <div class="col-lg-12 col-md-12 col-xs-12 Order" id="">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- Data -->
+                        <div class="form-group">
+                            <p></p>
+                            <label for="usr">Restaurant Name</label>
+                            <input type="text" class="form-control" id="restaurantName">
+                        </div>
+                        <div class="form-group">
+                            <label for="usr">Food type</label>
+                            <input type="text" class="form-control" id="foodType">
+                        </div>
+                        <div class="form-group">
+                            <label for="usr">Schedule</label>
+                            <input type="text" class="form-control" id="schedule">
+                        </div>
+                        <div class="form-group">
+                            <label for="usr">Address</label>
+                            <input type="text" class="form-control" id="address">
+                        </div>
+                        <div class="form-group">
+                            <label for="usr">Delivery service</label>
+
+                            <div class="checkbox">
+                              <label for="usr"><input type="checkbox" id="delivery">Delivery service</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="usr">Phone</label>
+                            <input type="text" class="form-control" id="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="usr">IMG URL for cover (400x300)</label>
+                            <input type="text" class="form-control" id="image">
+                        </div>
+                    </div>
+                    <!-- END Data -->
+                    <div class="col-lg-12">
+                        <div class="btn-group-lg">
+                            <button type="button " class="btn btn-success" onclick="saveChanges();">SAVE CHANGES</button>
+                            <button type="button " class="btn btn-danger" onclick="$(location).attr('href', 'vendorTerminal.html');">CANCEL</button>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END Order-->
+
+        </div>
+        <div class="col-lg-12 ">
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+        </div>
+    </div>
+    <!-- END Restaurant List -->
+
+    <!-- Footer -->
+    <footer>
+        <div class="container ">
+            <p>&copy; 2017 EatGo&trade;</p>
+            <ul class="list-inline ">
+                <li>
+                    <a href="# ">Privacy</a>
+                </li>
+                <li>
+                    <a href="# ">Terms</a>
+                </li>
+                <li>
+                    <a href="# ">FAQ</a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+    <!-- END Footer -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js "></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js "></script>
+    <script>
+        (function($) {
+            "use strict "; // Start of use strict
+            // jQuery for page scrolling feature - requires jQuery Easing plugin
+            $(document).on('click', 'a.page-scroll', function(event) {
+                var $anchor = $(this);
+                $('html, body').stop().animate({
+                    scrollTop: ($($anchor.attr('href')).offset().top - 50)
+                }, 1250, 'easeInOutExpo');
+                event.preventDefault();
+            });
+            // Highlight the top nav as scrolling occurs
+            $('body').scrollspy({
+                target: '.navbar-fixed-top',
+                offset: 100
+            });
+            // Closes the Responsive Menu on Menu Item Click
+            $('.navbar-collapse ul li a').click(function() {
+                $('.navbar-toggle:visible').click();
+            });
+            // Offset for Main Navigation
+            $('#mainNav').affix({
+                offset: {
+                    top: 50
+                }
+            })
+        })(jQuery); // End of use strict
+    </script>
+    <style>
+        .hover:hover {
+            border: 5px solid #2B4A78;
+        }
+        
+        @media (min-width: 992px) {
+            .container-fluid.my-own-class {
+                overflow-x: scroll;
+                white-space: nowrap;
+            }
+            .container-fluid.my-own-class .col-sm-3 {
+                display: inline-block;
+                vertical-align: top;
+                float: none;
+            }
+        }
+    </style>
+</body>
+
+</html>
