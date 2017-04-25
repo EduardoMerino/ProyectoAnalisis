@@ -13,10 +13,10 @@ function Pedido(){
 }
 
 function Platillo(){
-  this.id = "";
-  this.nombre = "";
-  this.precio = "";
-  this.foto = "";
+  this.description = "";
+  this.name = "";
+  this.price = "";
+  this.image = "";
 }
 
 function Cliente() {
@@ -86,7 +86,7 @@ function Cliente() {
      }
      this.anadirPlatillo = function(menu, platillo) {
          // Lógica pendiente
-         
+
      }
      this.actualizarInfo = function(restaurante) {
          this.restaurante = restaurante;

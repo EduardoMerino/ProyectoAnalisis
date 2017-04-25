@@ -12,6 +12,9 @@
   const database = firebase.database();
 /* END Initialize Firebase */
 
+var user;
+var RestaurantId;
+
 //ADD order
 function addOrder(orderID, clientName){
   $("#ordersList").prepend("" +
@@ -65,11 +68,13 @@ function delivered_click(btnid){
 }
 
 function displayOrders(){
-  dbOrdersList = database.ref("Restaurant/"+resID).orderByKey;
+  dbOrdersList = database.ref("Restaurant/"+RestaurantId).orderByKey;
   var orderID = "";
   var clientName = "";
 }
 
 $("document").ready(function(){
-
+  //the session storage must have a vendedot object with a restaurant atribute
+  user = JSON.parse(sessionStorage.getItem("user"));
+  RestaurantId = user.id;
 });

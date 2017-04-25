@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>All Orders</title>
+    <title>EatGoVendor</title>
 
     <!--Stylesheets-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -17,7 +17,7 @@
     <script src="js/Clasess.js"></script>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
-    <script src="js/ordersScript.js"></script>
+    <script src="js/addDish.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,7 +35,7 @@
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                   <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
               </button>
-              <a class="navbar-brand page-scroll" href="vendorTerminal.html" style="padding:0px">
+              <a class="navbar-brand page-scroll" href="#page-top" style="padding:0px">
                 <h3 style="color: black">
                   <span class="glyphicon glyphicon-cutlery"></span>
                   EatGo Vendor
@@ -44,15 +44,15 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                      <a class="page-scroll" href="vendorAddDish.html"><h5>+ Add Dish</h5></a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="vendorOrders.html"><h5>All Order's</h5></a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="vendorEditor.html"><h5><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>Settings</h5></a>
-                    </li>
+                  <li>
+                    <a class="page-scroll" href="vendorAddDish.html"><h5>+ Add Dish</h5></a>
+                  </li>
+                  <li>
+                      <a class="page-scroll" href="vendorOrders.html"><h5>All Order's</h5></a>
+                  </li>
+                  <li>
+                      <a class="page-scroll" href="vendorEditor.html"><h5><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>Settings</h5></a>
+                  </li>
                 </ul>
             </div>
         </div>
@@ -62,39 +62,42 @@
 
 
     <!-- Orders List -->
-    <div class="container" id="oldOrdersList">
+    <div class="container">
       <div class="row">
         <div class="col-lg-12">
-                <h1 class="page-header" id="Near-Search">Orders: </h1>
+                <h1 class="page-header" id="Near-Search">Add Dish: </h1>
         </div>
-
-        <!-- Order -->
-        <div class='col-lg-12 col-md-12 col-xs-12 Order'>
-          <div class='row'>
-            <div class='col-lg-7 col-md-7 col-xs-7'><!-- Data -->
-              <h4 class='customerName'> To: Client</h4>
-              <ul class='orderItemList' id='oldOrderItems"++"'>
-                <li>Item 1: $100.00</li>
-                <li>Item 2: $20.00</li>
-                <li>Item 3: $33.00</li>
-                <li>TOTAL : $153.00</li>
-              </ul>
-            </div><!-- END Data -->
-            <div class='col-lg-5 col-md-5 col-xs-5'><!-- Delivery info -->
-              <h4>Delivered by: </h4>
-              <h5>"++"</h5>
-              <h4>DATE:</h4>
-              <h5>"++"</h4>
-            </div><!-- END Delivery info -->
+        <style></style>
+          <!-- form -->
+          <div class='col-lg-12 col-md-12 col-xs-12 Order'>
+            <div class='row'>
+              <div style="padding: 10px; text-align: center">
+                <div class="input-group input-group-lg" style="margin: 5px; width: 100%">
+                  <input id="name" type="text" class="form-control" placeholder="Name." aria-describedby="sizing-addon1">
+                </div>
+                <div class="input-group input-group-lg" style="margin: 5px; width: 100%">
+                  <input id="description" type="text" class="form-control" placeholder="A brief Description of the dish." aria-describedby="sizing-addon2">
+                </div>
+                <div class="input-group input-group-lg" style="margin: 5px; width: 100%">
+                  <input id="price" type="text" class="form-control" placeholder="Price in numbers (don't add $ sign)." aria-describedby="sizing-addon3">
+                </div>
+                <div class="input-group input-group-lg" style="margin: 5px; width: 100%">
+                  <input id="image" type="text" class="form-control" placeholder="URL of a photo of your dish (500x 300 pixels)." aria-describedby="sizing-addon3">
+                </div>
+                <div class="btn-group" role="group" aria-label="...">
+                  <button type="button" class="btn btn-success" onclick="javascript:addDish()" >ADD</button>
+                </div>
+              </div>
+            </div>
           </div>
+          <!-- END form-->
         </div>
-         <!-- END Order-->
-
       </div>
+
+
       <div class="col-lg-12">
         </br></br></br></br></br>
       </div>
-    </div>
     <!-- END Restaurant List -->
 
     <!-- Footer -->
