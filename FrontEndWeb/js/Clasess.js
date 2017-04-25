@@ -1,5 +1,4 @@
 function Pedido(){
-  this.id = "";
   this.restaurante = "";
   this.client = "";
   this.total = 0.00;

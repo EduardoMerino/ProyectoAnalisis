@@ -35,7 +35,7 @@ function addOrder(orderID, clientName){
       "</div>"+
       "<div class='col-lg-3 col-md-3 col-xs-3' style='padding: 5px; word-wrap: break-word;'>"+
         "<h4 class='customerName'>Assign Delivery Person</h4>"+
-        "<select style='width: 100%; position: center; padding: 10px' class='DeliverySelect' id='+'select'+orderID+'>"+
+        "<select style='width: 100%; position: center; padding: 10px' class='DeliverySelect' id="+"select"+orderID+">"+
           "</select>"+
           "<h4>Deliver to: "+clientName+"<h4>"+
           "</div>"+
@@ -48,6 +48,7 @@ function cooking_click(btnid){
   id = btnid.replace("btnCooking","");
   //connect to firebase to change status to Cooking
   //..
+
 
 }
 
@@ -67,11 +68,30 @@ function delivered_click(btnid){
 
 }
 
-function displayOrders(){
-  dbOrdersList = database.ref("Restaurant/"+RestaurantId).orderByKey;
-  var orderID = "";
-  var clientName = "";
-}
+//function displayOrders(){
+  dbOrdersList = database.ref("Restaurant/"+RestaurantId+"/Order").orderByKey;
+  dbOrdersList.on("child_added", function(snapshot){
+    var orderID = "";
+    var clientId = "";
+    var clientName = "";
+    snapshot.forEach(function(childSnapshot){
+      orderID = childSnapshot.child("restaurantName").val();
+      clientId = childSnapshot.child("client").val();
+      var ref = firebase.database().ref("users/"+clientId).orderByKey;
+      ref.once("value").then(function(snap) {
+        clientName = snap.child("name").val();
+      });
+      addOrder(orderID, clientName);
+      var raf = firebase.database().ref("Restaurant/"+RestaurantId+"/Order/"+orderID+"platillos").orderByKey
+      raf.once("value").then(function(shot) {
+        shot.forEach(function(childshot){
+          $("#select"+orderID).append("<li>"+shot.child("name").val+": $" + shot.child("precio").val +"</li>");
+        });
+      });
+        $("#select"+orderID).append("<li>TOTAL : $"+childSnapshot.child("total").val()+"</li>");
+    });
+  });
+//}
 
 $("document").ready(function(){
   //the session storage must have a vendedot object with a restaurant atribute
