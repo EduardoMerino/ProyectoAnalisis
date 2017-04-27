@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+    <title>EatGo</title>
+
+    <!-- Todo lo de BootStrap -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/general.css" />
+    <!-- Todo lo de BootStrap -->
+    <title>EatGo</title>
+    <!-- javascript que se utilizará en la página -->
+    <script src="js/index.js"></script>
+    <script src="js/Clasess.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function()
+      {
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            if (typeof Storage !== "undefined") {
+              // window.localStorage is available!
+              var usuario=new Usuario();
+              usuario.id=user.uid;
+              usuario.name=user.displayName;
+              usuario.email=user.email;
+              localStorage.setItem("user", JSON.stringify(usuario));
+            } else {
+              // no native support for HTML5 storage :(
+              // maybe try dojox.storage or a third-party solution
+            }
+            //var commentsRef = firebase.database().ref('users/' + user.uid);
+            var users = firebase.database().ref("users").once("value").then(function(snapshot) {
+              if(snapshot.hasChild(user.uid))
+              {
+                if(snapshot.child(user.uid).child("typeOfUser").val()=="Cliente")
+                {
+                  $(location).attr('href', 'home.html');
+                }
+                else
+                {
+                  $(location).attr('href', 'vendorTerminal.html');
+                }
+              }
+            });
+          } else {
+            // No user is signed in.
+            $(location).attr('href', 'login.html');
+          }
+        })
+      });
+    </script>
+  </head>
+  <body class="form-signin">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <h2 class="toRemove">Are you a client or a restaurant manager?</h2>
+          <label>
+            <input type="radio" name="tipoDeUsuario" id="Cliente" value="Cliente" aria-label="..." onclick="changeDisplay();"> Cliente
+            <input type="radio" name="tipoDeUsuario" id="Restaurante" value="Cliente" aria-label="..." onclick="changeDisplay();"> Restaurante
+          </label>
+          <div class="formClient">
+            <h2>Don't let us stop you, order up!</h2>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="Generate();">Go!</button>
+          </div>
+          <div class="formRestaurant">
+            <input type="text" id="inputRestaurant" class="form-control" placeholder="Name of restaurant" required>
+            <input type="text" id="inputComida" class="form-control" placeholder="Type of food" required>
+            <input type="text" id="inputImagen" class="form-control" placeholder="IMG URL for cover (400x300)" required>
+            </br>
+
+            <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d17750.0897439398!2d-103.45496223626215!3d20.73065235029113!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2smx!4v1492992275733" width=100% height= "400" frameborder="0" style="border:0"></iframe>
+
+            </br>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="Generate();">Go!</button>
+          </div>
+
+        </div>
+      </div>
+    </div> <!-- /container -->
+  </body>
+</html>
