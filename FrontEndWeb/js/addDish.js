@@ -38,14 +38,27 @@ var user;
 var RestaurantId;
 
 function addDish(){
-  var platillo = new Platillo();
-  platillo.name = document.getElementById('name').value;
-  platillo.price = document.getElementById('price').value;
-  platillo.image = document.getElementById('image').value;
-  platillo.description = document.getElementById('description').value;
-
-  var k = database.ref().push().key;
-  database.ref("Restaurant/"+RestaurantId+"/menu/"+k).set(platillo);
+  firebase.auth().onAuthStateChanged(function(user){
+    if(user)
+    {
+      if(
+        document.getElementById('name').value!==""&&
+        document.getElementById('price').value!==""&&
+        document.getElementById('image').value!==""&&
+        document.getElementById('description').value!==""
+        )
+      {
+        var k = database.ref().push().key;
+        database.ref("Restaurant/"+user.uid+"/menu/"+k).set
+        ({
+          name:document.getElementById('name').value,
+          price:document.getElementById('price').value,
+          image:document.getElementById('image').value,
+          description:document.getElementById('description').value
+        });
+      }
+    }
+  });
 }
 
 $("document").ready(function(){
